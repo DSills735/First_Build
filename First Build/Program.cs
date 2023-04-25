@@ -1,5 +1,6 @@
 ﻿using System;
 using static System.Formats.Asn1.AsnWriter;
+var games = new List<string>();
 
 string name = GetName();
 var date = DateTime.UtcNow;
@@ -18,50 +19,79 @@ void Menu(string? name)
 {
     Console.WriteLine("---------------------------------------------------------");
     Console.WriteLine($"Hello {name.ToUpper()}. Right now it is {date}. This is David's Amazing Math Game! So glad you are here to try!\n");
-    Console.WriteLine($@"What game would youn like to play today? Choose from the options below:
+
+    bool isGameOn = true;
+    do
+    {
+        Console.Clear();
+        Console.WriteLine($@"What game would you like to play today? Choose from the options below:
+V - View Previous Games
 A - Addition
 S - Subtraction
 M - Multiplication
 D - Division
 Q - Exit to Desktop");
-    Console.WriteLine("---------------------------------------------------------");
+        Console.WriteLine("---------------------------------------------------------");
 
-    var gameSelected = Console.ReadLine();
+        var gameSelected = Console.ReadLine();
 
-    switch (gameSelected.Trim().ToLower())
-    {
-        case "a":
-            AdditionGame("Addition Game!");
-            break;
-        case "s":
-            SubtractionGame("Subtraction Game!");
-            break;
-        case "m":
-            MultiplicationGame("Multiplication Game!");
-            break;
-        case "d":
-            DivisionGame("Division Game!");
-            break;
-        case "q":
-            Console.WriteLine("Goodbye :(");
-            Environment.Exit(1);
-            break;
-        default:
-            Console.WriteLine("Invalid Input. Please Try Again");
-            break;
-    }
+        switch (gameSelected.Trim().ToLower())
+        {
+            case "v":
+                GetGames();
+                break;    
+            case "a":
+                AdditionGame("Addition Game!");
+                break;
+            case "s":
+                SubtractionGame("Subtraction Game!");
+                break;
+            case "m":
+                MultiplicationGame("Multiplication Game!");
+                break;
+            case "d":
+                DivisionGame("Division Game!");
+                break;
+            case "q":
+                Console.WriteLine("Goodbye :(");
+                isGameOn = false;
+                Environment.Exit(1);
+                break;
+            default:
+                Console.WriteLine("Invalid Input. Please Try Again");
+                break;
+        } 
+    } while (isGameOn);
+
 }
+
+void GetGames()
+{
+    Console.Clear();
+    Console.WriteLine("Score History");
+    Console.WriteLine("-----------------------------------");
+    foreach (var game in games)
+    {
+        Console.WriteLine(game);
+    }
+    Console.WriteLine("-----------------------------------\n");
+    Console.WriteLine("Press any key to return to the menu");
+    Console.ReadLine();
+}  
+
 void AdditionGame(string message)
 {
     Console.WriteLine(message);
 
     var random = new Random();
-    var score = 0;
+    var Score = 0;
 
     int firstnumber;
     int secondnumber;
 
-    for(int i=0; i < 5; i++)
+    
+
+    for (int i = 0; i < 5; i++)
     {
         Console.Clear();
         Console.WriteLine(message);
@@ -74,7 +104,7 @@ void AdditionGame(string message)
         if (int.Parse(result) == firstnumber + secondnumber)
         {
             Console.WriteLine("Your answer was Correct! Type any key for the next question.");
-            score++;
+            Score++;
             Console.ReadLine();
         }
         else
@@ -83,9 +113,18 @@ void AdditionGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game Over. Your Final Score is {score}.");
+        if (i == 4) Console.WriteLine($"Game Over. Your Final Score is {Score}. Press any key to return to the menu.");
+        Console.ReadLine();
    
     }
+    AddToHistory(Score, "Addition");
+  
+}
+
+void AddToHistory(int GameScore, string v)
+{
+    object gameType = null;
+    games.Add($"{DateTime.Now} - {gameType}: {GameScore} pts.");
 }
 
 void SubtractionGame(string message)
@@ -121,8 +160,12 @@ void SubtractionGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game Over. Your final score is {score}.");
+        if (i == 4) Console.WriteLine($"Game Over. Your final score is {score}. Press any key to return to the menu.");
+        Console.ReadLine();
+        
     }
+
+    AddToHistory(score, "Subtraction");
 }
 void MultiplicationGame(string message)
 {
@@ -155,9 +198,13 @@ void MultiplicationGame(string message)
             Console.WriteLine("That answer was incorrect. Type any key for the next question.");
             Console.ReadLine();
         }
-        if (i == 4) Console.WriteLine($"Game Over. Your final score is {score}.");
+        if (i == 4) Console.WriteLine($"Game Over. Your final score is {score}. Press any key ot return to the menu.");
+        Console.ReadLine();
+        
 
     }
+
+    AddToHistory(score, "Multiplication");
 }
 void DivisionGame(string message)
 {
@@ -186,9 +233,14 @@ void DivisionGame(string message)
             Console.WriteLine("That answer was incorrect. Type any key for the next question");
             Console.ReadLine();
         }
-        if (i == 4) Console.WriteLine($"Game Over. Your final score is {score}.");
-
+        if (i == 4)
+        {
+            Console.WriteLine($"Game Over. Your final score is {score}. Press any key to return to the menu.");
+            Console.ReadLine();
+        }
     }
+
+    AddToHistory(score, "Division");
 }
     
 
