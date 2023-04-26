@@ -248,16 +248,16 @@ void DivisionGame(string message)
 int[] GetDivisionNumbers()
 {
     var random = new Random();
-    var firstnumber = random.Next(0, 99);
-    var secondnumber = random.Next(0, 99);
+    var firstnumber = random.Next(1, 99);
+    var secondnumber = random.Next(1, 99);
 
     var result = new int[2];
 
 
     while (firstnumber % secondnumber !=0)
     {
-         firstnumber = random.Next(0, 99);
-         secondnumber = random.Next(0, 99);
+         firstnumber = random.Next(1, 99);
+         secondnumber = random.Next(1, 99);
 
     }
     result[0] = firstnumber;
