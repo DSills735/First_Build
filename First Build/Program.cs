@@ -181,7 +181,7 @@ void MultiplicationGame(string message)
         Console.Clear();
         Console.WriteLine(message);
         firstnumber = random.Next(1, 9);
-        secondnumber = random.Next(1, 9);
+        secondnumber = random.Next(1, 10);
 
         Console.WriteLine($"{firstnumber} * {secondnumber}");
         var result = Console.ReadLine();
