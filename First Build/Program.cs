@@ -17,10 +17,9 @@ Menu(name);
 
 void Menu(string? name)
 {
+    bool isGameOn = true;
     Console.WriteLine("---------------------------------------------------------");
     Console.WriteLine($"Hello {name.ToUpper()}. Right now it is {date}. This is David's Amazing Math Game! So glad you are here to try!\n");
-
-    bool isGameOn = true;
     do
     {
         Console.Clear();
@@ -222,7 +221,7 @@ void DivisionGame(string message)
         Console.WriteLine($"{firstnumber} / {secondnumber}");
         var result = Console.ReadLine();
 
-        if (int.Parse(result) == firstnumber * secondnumber)
+        if (int.Parse(result) == firstnumber / secondnumber)
         {
             Console.WriteLine("Your answer was correct! Type any key for the next question.");
             score++;
